@@ -9,7 +9,7 @@ export async function getRecommendedUsers(req, res) {
     const recommendedUsers = await User.find({
       $and: [
         { _id: { $ne: currentUserId } }, //exclude current user
-        { $id: { $nin: currenUser.friends } }, // exclude current user's friends
+        { _id: { $nin: currenUser.friends } }, // exclude current user's friends
         { isOnboarded: true }, // should be onboarded
       ],
     });
@@ -158,6 +158,26 @@ export async function getOutgoingFriendRequests(req, res) {
   } catch (error) {
     console.error(
       "Error in getOutgoingFriendRequests Controller",
+      error.message
+    );
+    res.status(500).json({ msg: "Internal Server Error" });
+  }
+}
+
+export async function getIncomingFriendRequests(req, res) {
+  try {
+    const incomingReqs = await FriendRequest.find({
+      recipient: req.user.id,
+      status: "pending",
+    }).populate(
+      "sender",
+      "fullName profilePic nativeLanguage learningLanguage"
+    );
+
+    res.status(200).json(incomingReqs);
+  } catch (error) {
+    console.error(
+      "Error in getIncomingFriendRequests Controller",
       error.message
     );
     res.status(500).json({ msg: "Internal Server Error" });

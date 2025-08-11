@@ -32,7 +32,7 @@ export const signup = async (req, res) => {
 
     // Creating user and profile pic
     const idx = Math.floor(Math.random() * 100) + 1; // Generate a number between 1 and 100
-    const randomAvatar = `avatar-placeholder.iran.liara.run/public/${idx}.png`;
+    const randomAvatar = `https://avatar.iran.liara.run/public/${idx}.png`;
 
     const newUser = await User.create({
       email,
