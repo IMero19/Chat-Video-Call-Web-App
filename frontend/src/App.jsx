@@ -1,7 +1,7 @@
 import React from "react";
 import { Navigate, Route, Routes } from "react-router";
 import HomePage from "./pages/HomePage.jsx";
-import SignupPage from "./pages/SignupPage.jsx";
+import SignUpPage from "./pages/SignUpPage.jsx";
 import LoginPage from "./pages/LoginPage.jsx";
 import NotificationsPage from "./pages/NotificationsPage.jsx";
 import OnboardingPage from "./pages/OnboardingPage.jsx";
@@ -46,7 +46,7 @@ const App = () => {
           path="/signup"
           element={
             !isAuthenticated ? (
-              <SignupPage />
+              <SignUpPage />
             ) : (
               <Navigate to={isOnboarded ? "/" : "/onboarding"} />
             )
